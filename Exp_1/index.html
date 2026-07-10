@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Implementation Demo</title>
+
+    <!-- INTERNAL JAVASCRIPT -->
+    <script>
+        // Runs automatically when the script is parsed
+        console.log("Internal JS: Page is loading...");
+
+        // Safety check example for console.error
+        if (!window.localStorage) {
+            console.error("Error: LocalStorage is not supported in this browser!");
+        }
+    </script>
+
+    <!-- EXTERNAL JAVASCRIPT -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <h1>JavaScript Implementation Demo</h1>
+    <p>Open your browser console (F12 or Right-Click -> Inspect -> Console) to see the output.</p>
+
+    <!-- INLINE JAVASCRIPT -->
+    <button onclick="alert('Welcome to the webpage!'); console.log('Inline JS: User clicked the welcome button.');">
+        Show Welcome Message
+    </button>
+
+</body>
+</html>
