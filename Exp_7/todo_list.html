@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f0f4f8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* Student Details */
+.student{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#191919;
+}
+
+.container{
+    width:500px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.15);
+}
+
+h2{
+    text-align:center;
+    color:#2c3e50;
+    margin-bottom:20px;
+}
+
+.input-box{
+    display:flex;
+    gap:10px;
+}
+
+input{
+    flex:1;
+    padding:12px;
+    border:2px solid #3498db;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    transition:.3s;
+}
+
+.add-btn{
+    background:#27ae60;
+}
+
+.add-btn:hover{
+    background:#1f8a4d;
+}
+
+.edit-btn{
+    background:#f39c12;
+    margin-right:5px;
+}
+
+.delete-btn{
+    background:#e74c3c;
+}
+
+.edit-btn:hover{
+    background:#d68910;
+}
+
+.delete-btn:hover{
+    background:#c0392b;
+}
+
+ul{
+    list-style:none;
+    margin-top:20px;
+}
+
+li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#ecf0f1;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+
+.task{
+    font-size:16px;
+    color:#2c3e50;
+}
+
+small{
+    display:block;
+    margin-top:15px;
+    text-align:center;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Student Details -->
+<div class="student">
+    Name: Siddhant Bahekar <br>
+    PRN: 24070521077
+</div>
+
+<div class="container">
+
+<h2>📝 To-Do List</h2>
+
+<div class="input-box">
+<input type="text" id="taskInput" placeholder="Enter a task">
+<button class="add-btn" onclick="addTask()">Add</button>
+</div>
+
+<ul id="taskList"></ul>
+
+<small>Total Tasks: <span id="count">0</span></small>
+
+</div>
+
+<script>
+
+function updateCount(){
+    document.getElementById("count").textContent =
+    document.getElementById("taskList").children.length;
+}
+
+function addTask(){
+
+    let input = document.getElementById("taskInput");
+    let task = input.value.trim();
+
+    if(task === ""){
+        alert("Please enter a task.");
+        return;
+    }
+
+    // DOM Traversal
+    let list = document.getElementById("taskList");
+
+    // DOM Update
+    let li = document.createElement("li");
+
+    li.innerHTML =
+    `<span class="task">${task}</span>
+     <div>
+        <button class="edit-btn" onclick="editTask(this)">Edit</button>
+        <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+     </div>`;
+
+    list.appendChild(li);
+
+    input.value = "";
+    updateCount();
+}
+
+function editTask(button){
+
+    // DOM Traversal
+    let li = button.parentElement.parentElement;
+    let taskText = li.querySelector(".task");
+
+    let updated = prompt("Edit Task", taskText.textContent);
+
+    if(updated !== null && updated.trim() !== ""){
+        taskText.textContent = updated;
+    }
+}
+
+function deleteTask(button){
+
+    // DOM Traversal
+    let li = button.parentElement.parentElement;
+
+    li.remove();
+
+    updateCount();
+}
+
+</script>
+
+</body>
+</html>
