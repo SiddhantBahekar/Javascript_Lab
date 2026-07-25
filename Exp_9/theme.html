@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme Preferences</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    transition:0.4s;
+    background:#f5f5f5;
+}
+
+/* Student Details */
+.student{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#333;
+}
+
+.container{
+    width:420px;
+    padding:30px;
+    text-align:center;
+    border-radius:15px;
+    background:white;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+h2{
+    margin-bottom:20px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    color:white;
+    transition:.3s;
+}
+
+#darkBtn{
+    background:#2c3e50;
+}
+
+#lightBtn{
+    background:#3498db;
+}
+
+#clearBtn{
+    background:#e74c3c;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.dark{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark .container{
+    background:#2d2d2d;
+    color:white;
+}
+
+/* Change student text color in dark mode */
+.dark .student{
+    color:white;
+}
+
+#status{
+    margin-top:15px;
+    font-weight:bold;
+    color:#16a085;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Student Details -->
+<div class="student">
+    Name: Siddhant Bahekar <br>
+    PRN: 24070521077
+</div>
+
+<div class="container">
+
+<h2>🎨 Theme Preference</h2>
+
+<p>Select your preferred theme.</p>
+
+<button id="darkBtn" onclick="setDarkTheme()">
+🌙 Dark Theme
+</button>
+
+<button id="lightBtn" onclick="setLightTheme()">
+☀️ Light Theme
+</button>
+
+<button id="clearBtn" onclick="clearStorage()">
+🗑 Clear Preferences
+</button>
+
+<p id="status"></p>
+
+</div>
+
+<script>
+
+// Apply saved theme from localStorage
+window.onload = function(){
+
+    let savedTheme = localStorage.getItem("theme");
+
+    if(savedTheme === "dark"){
+        document.body.classList.add("dark");
+    }
+
+    // sessionStorage: count visits in current browser session
+    let visits = sessionStorage.getItem("visits");
+
+    if(visits == null){
+        visits = 1;
+    }
+    else{
+        visits = Number(visits) + 1;
+    }
+
+    sessionStorage.setItem("visits", visits);
+
+    document.getElementById("status").innerHTML =
+    "Session Visits: " + visits;
+};
+
+// Save Dark Theme using localStorage
+function setDarkTheme(){
+
+    document.body.classList.add("dark");
+
+    localStorage.setItem("theme","dark");
+
+    document.getElementById("status").innerHTML =
+    "🌙 Dark Theme Saved (localStorage)";
+}
+
+// Save Light Theme using localStorage
+function setLightTheme(){
+
+    document.body.classList.remove("dark");
+
+    localStorage.setItem("theme","light");
+
+    document.getElementById("status").innerHTML =
+    "☀️ Light Theme Saved (localStorage)";
+}
+
+// Clear localStorage and sessionStorage
+function clearStorage(){
+
+    localStorage.clear();
+    sessionStorage.clear();
+
+    document.body.classList.remove("dark");
+
+    document.getElementById("status").innerHTML =
+    "🗑 Preferences Cleared";
+}
+
+</script>
+
+</body>
+</html>
