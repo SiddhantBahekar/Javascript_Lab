@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Admission Form</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#e5bca8,#c1dce0);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+/* Student Details */
+.student{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#333;
+}
+
+.container{
+    width:450px;
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+h2{
+    text-align:center;
+    color:#ff5e62;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#444;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+}
+
+input:focus,select:focus{
+    outline:none;
+    border-color:#ff5e62;
+}
+
+small{
+    color:red;
+    font-size:13px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#ff5e62;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#e64a4a;
+}
+
+#success{
+    margin-top:15px;
+    text-align:center;
+    color:green;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Student Details -->
+<div class="student">
+    Name: Siddhant Bahekar <br>
+    PRN: 24070521077
+</div>
+
+<div class="container">
+
+<h2>🏋️ Gym Admission Form</h2>
+
+<form id="gymForm">
+
+<div class="input-group">
+<label>Full Name</label>
+<input type="text" id="name">
+<small id="nameError"></small>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email">
+<small id="emailError"></small>
+</div>
+
+<div class="input-group">
+<label>Age</label>
+<input type="number" id="age">
+<small id="ageError"></small>
+</div>
+
+<div class="input-group">
+<label>Membership Plan</label>
+<select id="plan">
+<option value="">Select Plan</option>
+<option>Monthly</option>
+<option>Quarterly</option>
+<option>Yearly</option>
+</select>
+<small id="planError"></small>
+</div>
+
+<button type="submit">Submit</button>
+
+</form>
+
+<p id="success"></p>
+
+</div>
+
+<script>
+
+// Live Validation Events
+document.getElementById("name").addEventListener("input", validateName);
+document.getElementById("email").addEventListener("input", validateEmail);
+document.getElementById("age").addEventListener("blur", validateAge);
+
+function validateName(){
+    let name = document.getElementById("name").value.trim();
+
+    document.getElementById("nameError").textContent =
+    name.length < 3 ? "Minimum 3 characters required." : "";
+}
+
+function validateEmail(){
+
+    let email = document.getElementById("email").value;
+
+    let pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    document.getElementById("emailError").textContent =
+    pattern.test(email) ? "" : "Enter a valid email.";
+}
+
+function validateAge(){
+
+    let age = document.getElementById("age").value;
+
+    document.getElementById("ageError").textContent =
+    (age < 16 || age > 60) ? "Age must be between 16 and 60." : "";
+}
+
+// Submit Event
+document.getElementById("gymForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    validateName();
+    validateEmail();
+    validateAge();
+
+    let plan = document.getElementById("plan").value;
+
+    document.getElementById("planError").textContent =
+    plan === "" ? "Please select a plan." : "";
+
+    if(
+        document.getElementById("nameError").textContent === "" &&
+        document.getElementById("emailError").textContent === "" &&
+        document.getElementById("ageError").textContent === "" &&
+        document.getElementById("planError").textContent === ""
+    ){
+        document.getElementById("success").textContent =
+        "✅ Gym Admission Form Submitted Successfully!";
+    }
+    else{
+        document.getElementById("success").textContent = "";
+    }
+
+});
+
+</script>
+
+</body>
+</html>
